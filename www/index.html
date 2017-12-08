@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="css/css.css" />
+		<script type="text/javascript" src="js/jquery/dist/jquery.js"></script>
+		<link rel="stylesheet" type="text/css" href="js/bootstrap/dist/css/bootstrap.css">
+		<link rel="stylesheet" type="text/css" href="js/bootstrap/dist/css/bootstrap-theme.css">
+		<script type="text/javascript" src="js/bootstrap/dist/js/bootstrap.js"></script>
+		<link rel="stylesheet" type="text/css" href="js/summernote/dist/summernote.css">
+		<script type="text/javascript" src="js/summernote/dist/summernote.js"></script>
+		<link rel="stylesheet" type="text/css" href="css/dashboard.css">
+		<script src="js/js.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+
+	<body>
+		<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">Large modal</button>
+
+		<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+			<div class="modal-dialog modal-lg" role="document">
+				<div class="modal-content">
+					<form>
+						<div class="form-group">
+							<label for="exampleInputEmail1">user</label>
+							<input type="text" class="form-control inp1" id="exampleInputEmail1" placeholder="title">
+						</div>
+						<div class="form-group">
+							<label for="exampleInputEmail1">title</label>
+							<input type="text" class="form-control inp3" id="exampleInputEmail1" placeholder="title">
+						</div>
+						<div class="form-group">
+							<label for="exampleInputPassword1">bookname</label>
+							<input type="text" class="form-control inp4" id="exampleInputPassword1" placeholder="bookname">
+						</div>
+						<p class="p">texts</p>
+						<div class="box"></div>
+						<button type="button" class="btn btn-primary tj">保存</button>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="content">
+			<ul class="ul1"></ul>
+			<ul class="ul2"></ul>
+		</div>
+	</body>
+	<script type="text/javascript">
+		$(function() {
+			$('.box').summernote();
+			$("body").on("click", ".tj", function() {
+				var user = $(".inp1").val();
+				var title = $(".inp3").val();
+				var bookname = $(".inp4").val();
+				var texts = $('.box').summernote('code');
+				$.ajax({
+					url: "http://localhost:8000/user/list",
+					type: "post",
+					data: {
+						user: user,
+						title: title,
+						bookname: bookname,
+						texts: texts
+					},
+					success: function(e) {
+						console.log(e);
+					},
+					error: function(e) {
+						console.log(e);
+					}
+				})
+			})
+			$.ajax({
+				url: "http://localhost:8000/user/huoqu",
+				type: "post",
+				success: function(e) {
+					console.log(e);
+					var str = "";
+					var str1 = "";
+					for(var i in e) {
+						str += "<li>" + e[i].user + "</li>";
+						str1 += "<li>" + e[i].title + "</li>";
+						//									str += "<h1>" + e[i].title + "</h1><h2>" + e[i].bookname + "</h2><span>" + e[i].time + "</span><div>" + e[i].texts + "</div>";
+					}
+					$(".ul1").html(str);
+					$(".ul2").html(str1);
+				},
+				error: function(e) {
+					console.log(e);
+				}
+			})
+		})
+	</script>
+
+</html>

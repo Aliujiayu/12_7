@@ -1,0 +1,29 @@
+*{
+	margin: 0;padding: 0;
+}
+.modal-content{
+	padding: 30px 20px;
+}
+.p{
+	font-size: 14px;
+	font-weight: bold;
+	line-height: 20px;
+}
+
+ul{
+	width: 100%;
+	/*border: 1px solid lime;*/
+	list-style: none;
+	float: left;
+	box-sizing: border-box;
+	margin: 0 !important;
+}
+li{
+	float: left;
+	padding: 10px 10px;
+	border: 1px solid aqua;
+}
+.ul2>li{
+	width: 100%;
+	box-sizing: border-box;
+}
